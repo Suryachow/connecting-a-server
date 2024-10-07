@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="register">
+            <h2 class="auth-title">Register</h2>
+            <form class="auth-form">
+                <label for="reg-username">Username</label>
+                <input type="text" id="reg-username" class="auth-input" placeholder="Create a username">
+                <label for="email">Email</label>
+                <input type="email" id="email" class="auth-input" placeholder="Enter your email">
+                <label for="reg-password">Password</label>
+                <input type="password" id="reg-password" class="auth-input" placeholder="Create a password">
+                <button type="submit" class="auth-button">Register</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+<form class="auth-form" action="/register" method="post">
+    <label for="reg-username">Username</label>
+    <input type="text" id="reg-username" class="auth-input" placeholder="Create a username" name="username">
+    <label for="email">Email</label>
+    <input type="email" id="email" class="auth-input" placeholder="Enter your email" name="email">
+    <label for="reg-password">Password</label>
+    <input type="password" id="reg-password" class="auth-input" placeholder="Create a password" name="password">
+    <button type="submit" class="auth-button">Register</button>
+</form>
+<script>
+    document.querySelector('.auth-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const username = document.querySelector('#reg-username').value;
+        const email = document.querySelector('#email').value;
+        const password = document.querySelector('#reg-password').value;
+
+        const response = await fetch('/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, email, password })
+        });
+
+        const result = await response.json();
+        alert(result.message);
+    });
+</script>

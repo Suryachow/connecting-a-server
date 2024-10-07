@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="login">
+            <h2 class="auth-title">Login</h2>
+            <form class="auth-form">
+                <label for="username">Username</label>
+                <input type="text" id="username" class="auth-input" placeholder="Enter your username">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="auth-input" placeholder="Enter your password">
+                <button type="submit" class="auth-button">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+<form class="auth-form" action="/login" method="post">
+    <label for="username">Username</label>
+    <input type="text" id="username" class="auth-input" placeholder="Enter your username" name="username">
+    <label for="password">Password</label>
+    <input type="password" id="password" class="auth-input" placeholder="Enter your password" name="password">
+    <button type="submit" class="auth-button">Login</button>
+</form>
+<script>
+    document.querySelector('.auth-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const username = document.querySelector('#username').value;
+        const password = document.querySelector('#password').value;
+
+        const response = await fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        });
+
+        const result = await response.json();
+        alert(result.message);
+    });
+</script>
